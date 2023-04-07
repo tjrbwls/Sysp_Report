@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <string.h>
+
+void my_htob(char c) {
+        int n = (int)c - 48; 
+        int m = (int)c - 48; 
+        int o = (int)c - 48; 
+        // 넘겨받은 char형 16진수 c를 int형으로 바꾼 뒤 2진수로 바꿔주는 계산 후 그 값을 int형 변수 n, m, o에 저장
+
+        int aa[4] = { 0, }; // 16진수를 4비트로 저장할 배열 aa선언
+        int bb[3] = { 0, }; // 16진수를 3비트로 저장할 배열 bb선언
+        int cc[9] = { 0, };  // 16진수를 9비트로 저장할 배열 cc선언
+
+        if (n > 9)
+        {
+                n -= 7;
+        }
+
+        if (m > 9)
+        {
+                m -= 7;
+        }
+
+        if (o > 9)
+        {
+                o -= 7;
+        }
+        // 만약 n, m, o가 9보다 크다면 2진수로 만들 수 없으므로 7을 뺀 값을 할당	
+
+        for (int i = 0; i < 4; i++)
+        {
+                aa[i] = (n % 2);
+                n /= 2;
+        }
+        // 위에서 계산한 n값을 2로 나눈 나머지 값을 하나씩 배열 aa에 저장하는 반복문
+
+        for (int i = 0; i < 3; i++)
+        {
+                bb[i] = (m % 2);
+                m /= 2;
+        }
+        // 위에서 계산한 n값을 2로 나눈 나머지 값을 하나씩 배열 bb에 저장하는 반복문
+
+        for (int i = 0; i < 9; i++)
+        {
+                cc[i] = (o % 2);
+                o /= 2;
+        }
+        // 위에서 계산한 n값을 2로 나눈 나머지 값을 하나씩 배열 cc에 저장하는 반복문
+
+        printf("4비트 : 3비트 : 9비트\n");
+
+        for (int i = 3; i >= 0; i--)
+        {
+                printf("%d", aa[i]);
+        }
+        printf(" : ");
+
+        for (int i = 2; i >= 0; i--)
+        {
+                printf("%d", bb[i]);
+        }
+        printf(" : ");
+
+        for (int i = 8; i >= 0; i--)
+        {
+                printf("%d", cc[i]);
+        }
+        // 저장 받은 값들을 각 bit들의 수만큼 반복문으로 출력
+
+        printf("\n");
+}
+
+int main() {
+        char arr[50001]; //16진수를 입력받아 저장할 char형 배열 arr선언
+
+        printf("입력 (16진수) : ");
+        scanf("%s", arr); // arr에 16진수 입력
+
+        for (int i = 0; i < strlen(arr); i++)
+        {
+                my_htob(arr[i]); //입력받은 16진수 크기만큼의 배열을 반복문을 통해 만든 후 my_htob에 할당
+        }
+
+        return 0;
+}
